@@ -1,162 +1,160 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>יישומי בינה מלאכותית (AI)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: 'Heebo', sans-serif;
         }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            overflow: hidden;
-        }
-        .text-center {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #1e40af;
-        }
-        .grid {
+        .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
         }
-        .card {
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease-in-out;
-            cursor: pointer;
+        @media (min-width: 1024px) {
+            .app-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
-        .card:hover {
+        .search-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        .category-btn:hover, .category-btn.active {
+            background-color: #4299e1;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .app-card {
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+        .app-card:hover {
             transform: translateY(-5px);
         }
-        .card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: #004d40;
-        }
-        .card p {
-            font-size: 0.8rem;
-            color: #004d40;
-        }
-        .chatbot {
-            background-color: #e0f7fa;
-            color: #00695c;
-        }
-        .image-creation {
-            background-color: #ffecb3;
-            color: #795548;
-        }
-        .data-analysis {
-            background-color: #c8e6c9;
-            color: #388e3c;
-        }
-        .creative-writing {
-            background-color: #d1c4e9;
-            color: #512da8;
-        }
-        .search-engine {
-            background-color: #bbdefb;
-            color: #1976d2;
-        }
+        .chatbot { border-color: #60a5fa; }
+        .data-analysis { border-color: #34d399; }
+        .image-creation { border-color: #f59e0b; }
+        .search-engine { border-color: #8b5cf6; }
+        .code-generation { border-color: #ec4899; }
+        .creative-writing { border-color: #14b8a6; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="text-center">
-            <h1 class="title">יישומי בינה מלאכותית (AI)</h1>
-            <p>הכלים המובילים שמשתמשים בבינה מלאכותית כדי לשפר את חייכם.</p>
+<body class="bg-gray-50 min-h-screen p-4">
+    <h1 class="text-4xl font-bold text-center mb-6 text-indigo-600">יישומי בינה מלאכותית (AI)</h1>
+    
+    <div class="mb-6 max-w-3xl mx-auto">
+        <div class="relative mb-4">
+            <input type="text" id="searchInput" placeholder="חיפוש יישומים..." class="w-full pr-10 pl-4 py-3 border-2 border-indigo-300 rounded-full focus:outline-none focus:border-indigo-500 transition duration-300">
+            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400 search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
-        <div class="grid">
-            <div class="card chatbot" onclick="location.href='https://openai.com/chatgpt'">
-                <h3>Chat GPT</h3>
-                <p>יצירת טקסטים, תרגום, וניסוח תשובות.</p>
-            </div>
-            <div class="card chatbot" onclick="location.href='https://aistudio.google.com/app/prompts/new_chat'">
-                <h3>Google AI Studio</h3>
-                <p>שיחות חכמות עם AI מתקדמת.</p>
-            </div>
-            <div class="card data-analysis" onclick="location.href='https://www.perplexity.ai/'">
-                <h3>Perplexity</h3>
-                <p>ניתוח טקסטים מורכבים וזיהוי דפוסים.</p>
-            </div>
-            <div class="card image-creation" onclick="location.href='https://gemini.google.com/'">
-                <h3>Gimini</h3>
-                <p>יצירת תוכן יצירתי בעזרת בינה מלאכותית.</p>
-            </div>
-            <div class="card data-analysis" onclick="location.href='https://cloud.google.com/vertex-ai'">
-                <h3>Google Vertex AI</h3>
-                <p>יצירת תוכן וניתוח נתונים מתקדם.</p>
-            </div>
-            <div class="card chatbot" onclick="location.href='https://www.anthropic.com/'">
-                <h3>Claude.ai</h3>
-                <p>מענה לשאלות והבנת שפה מתקדמת.</p>
-            </div>
-            <div class="card search-engine" onclick="location.href='https://www.bing.com/'">
-                <h3>Bing</h3>
-                <p>חיפוש חכם עם תכונות AI.</p>
-            </div>
-            <div class="card data-analysis" onclick="location.href='https://poe.com/'">
-                <h3>POE</h3>
-                <p>ניתוח נתונים וזיהוי תובנות עסקיות.</p>
-            </div>
-            <div class="card data-analysis" onclick="location.href='https://reka.ai/'">
-                <h3>Reka</h3>
-                <p>ניתוח רגשות ודעת קהל ברשתות חברתיות.</p>
-            </div>
-            <div class="card data-analysis" onclick="location.href='https://groq.com/'">
-                <h3>Groq</h3>
-                <p>ביצועי AI גבוהים וניתוח בזמן אמת.</p>
-            </div>
-            <div class="card data-analysis" onclick="location.href='https://mistral.ai/'">
-                <h3>Mistral</h3>
-                <p>ניתוח טקסטים והפקת תובנות.</p>
-            </div>
-            <div class="card image-creation" onclick="location.href='https://leonardo.ai/'">
-                <h3>Leonardo.ai</h3>
-                <p>יצירת אומנות ואנימציות בעזרת AI.</p>
-            </div>
-            <div class="card image-creation" onclick="location.href='https://ideogram.ai/'">
-                <h3>Ideogram.ai</h3>
-                <p>יצירת גרפיקה וטקסטים חזותיים.</p>
-            </div>
-            <div class="card image-creation" onclick="location.href='https://emoji.ai/'">
-                <h3>Moji Generator</h3>
-                <p>יצירת אימוג'ים מותאמים אישית.</p>
-            </div>
-            <div class="card image-creation" onclick="location.href='https://www.midjourney.com/'">
-                <h3>Midjourney</h3>
-                <p>יצירת אומנות ותמונות בעזרת AI.</p>
-            </div>
-            <div class="card image-creation" onclick="location.href='https://openai.com/dall-e-2'">
-                <h3>DALL·E</h3>
-                <p>יצירת תמונות מאפס על בסיס טקסט.</p>
-            </div>
-            <div class="card creative-writing" onclick="location.href='https://www.notion.so/product/ai'">
-                <h3>Notion AI</h3>
-                <p>כתיבה ושיפור תוכן בתוך Notion.</p>
-            </div>
-            <div class="card creative-writing" onclick="location.href='https://www.jasper.ai/'">
-                <h3>Jasper AI</h3>
-                <p>כתיבה שיווקית ותכנים לבלוגים.</p>
-            </div>
-            <div class="card chatbot" onclick="location.href='https://www.playground.com/'">
-                <h3>Playground AI</h3>
-                <p>משחקים ולמידה מבוססי AI.</p>
-            </div>
+        <div id="categoriesContainer" class="flex flex-wrap justify-center gap-2 mb-4">
+            <!-- קטגוריות יתווספו כאן דינמית -->
         </div>
     </div>
+
+    <div id="appGrid" class="app-grid max-w-6xl mx-auto">
+        <!-- היישומים יתווספו כאן דינמית -->
+    </div>
+
+    <script>
+        const aiApps = [
+            { name: 'ChatGPT', category: 'צ\'אטבוט', description: 'סיוע בכתיבה, תרגום ומענה על שאלות', icon: '💬', link: 'https://chat.openai.com/' },
+            { name: 'Perplexity', category: 'צ\'אטבוט', description: 'ניתוח טקסטים מורכבים וזיהוי דפוסים', icon: '🧠', link: 'https://www.perplexity.ai/' },
+            { name: 'Gemini', category: 'צ\'אטבוט', description: 'יצירת תוכן יצירתי ומענה לשאלות מורכבות', icon: '🌟', link: 'https://gemini.google.com/' },
+            { name: 'Google Vertex AI', category: 'ניתוח נתונים', description: 'יצירת תוכן וניתוח נתונים מתקדם', icon: '📊', link: 'https://cloud.google.com/vertex-ai' },
+            { name: 'Claude.ai', category: 'צ\'אטבוט', description: 'מענה לשאלות והבנת שפה מתקדמת', icon: '🤖', link: 'https://www.anthropic.com/' },
+            { name: 'Bing AI', category: 'מנוע חיפוש', description: 'חיפוש חכם עם תכונות AI', icon: '🔍', link: 'https://www.bing.com/' },
+            { name: 'POE', category: 'צ\'אטבוט', description: 'מגוון צ\'אטבוטים וכלי AI לשימוש יומיומי', icon: '🗨️', link: 'https://poe.com/' },
+            { name: 'Reka', category: 'ניתוח נתונים', description: 'ניתוח רגשות ודעת קהל ברשתות חברתיות', icon: '😃', link: 'https://reka.ai/' },
+            { name: 'Groq', category: 'ניתוח נתונים', description: 'ביצועי AI גבוהים וניתוח בזמן אמת', icon: '⚡', link: 'https://groq.com/' },
+            { name: 'Mistral', category: 'ניתוח נתונים', description: 'ניתוח טקסטים והפקת תובנות', icon: '🌪️', link: 'https://mistral.ai/' },
+            { name: 'Leonardo.ai', category: 'יצירת תמונות', description: 'יצירת אומנות ואנימציות בעזרת AI', icon: '🎨', link: 'https://leonardo.ai/' },
+            { name: 'Ideogram.ai', category: 'יצירת תמונות', description: 'יצירת גרפיקה וטקסטים חזותיים', icon: '🖼️', link: 'https://ideogram.ai/' },
+            { name: 'Emoji Generator', category: 'יצירת תמונות', description: 'יצירת אימוג\'ים מותאמים אישית', icon: '😎', link: 'https://emoji.ai/' },
+            { name: 'Midjourney', category: 'יצירת תמונות', description: 'יצירת אומנות ותמונות בעזרת AI', icon: '🖌️', link: 'https://www.midjourney.com/' },
+            { name: 'DALL·E', category: 'יצירת תמונות', description: 'יצירת תמונות מאפס על בסיס טקסט', icon: '🎭', link: 'https://openai.com/dall-e-2' },
+            { name: 'GitHub Copilot', category: 'כתיבת קוד', description: 'סיוע בכתיבת קוד והשלמת קוד', icon: '👨‍💻', link: 'https://github.com/features/copilot' },
+            { name: 'Notion AI', category: 'כתיבה יצירתית', description: 'כתיבה ושיפור תוכן בתוך Notion', icon: '📝', link: 'https://www.notion.so/product/ai' }
+        ];
+
+        const categories = ['הכל', ...new Set(aiApps.map(app => app.category))];
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.textContent = category;
+                button.className = 'category-btn px-4 py-2 rounded-full text-sm bg-white text-indigo-600 shadow-md hover:shadow-lg';
+                button.onclick = () => filterApps(category);
+                container.appendChild(button);
+            });
+        }
+
+        function getCategoryClass(category) {
+            switch(category) {
+                case 'צ\'אטבוט': return 'chatbot';
+                case 'ניתוח נתונים': return 'data-analysis';
+                case 'יצירת תמונות': return 'image-creation';
+                case 'מנוע חיפוש': return 'search-engine';
+                case 'כתיבת קוד': return 'code-generation';
+                case 'כתיבה יצירתית': return 'creative-writing';
+                default: return '';
+            }
+        }
+
+        function renderApps(apps) {
+            const grid = document.getElementById('appGrid');
+            grid.innerHTML = '';
+            apps.forEach(app => {
+                const card = document.createElement('a');
+                card.href = app.link;
+                card.target = '_blank';
+                card.className = `app-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl ${getCategoryClass(app.category)} block`;
+                card.innerHTML = `
+                    <div class="text-4xl mb-3">${app.icon}</div>
+                    <h3 class="text-xl font-bold mb-2">${app.name}</h3>
+                    <p class="text-sm text-indigo-600 mb-3">${app.category}</p>
+                    <p class="text-gray-600">${app.description}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterApps(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === category) {
+                    btn.classList.add('active');
+                }
+            });
+            const filteredApps = category === 'הכל' ? aiApps : aiApps.filter(app => app.category === category);
+            renderApps(filteredApps);
+        }
+
+        function searchApps() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredApps = aiApps.filter(app => 
+                app.name.toLowerCase().includes(searchTerm) || 
+                app.description.toLowerCase().includes(searchTerm)
+            );
+            renderApps(filteredApps);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', searchApps);
+
+        renderCategories();
+        renderApps(aiApps);
+    </script>
 </body>
 </html>
+Last edited just now
+
+

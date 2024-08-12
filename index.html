@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>יישומי בינה מלאכותית (AI)</title>
+    <title>כלי בינה מלאכותית (AI) מתקדמים</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
@@ -45,10 +45,16 @@
         .search-engine { border-color: #8b5cf6; }
         .code-generation { border-color: #ec4899; }
         .creative-writing { border-color: #14b8a6; }
+        #switchButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen p-4">
-    <h1 class="text-4xl font-bold text-center mb-6 text-indigo-600">יישומי בינה מלאכותית (AI)</h1>
+    <h1 class="text-4xl font-bold text-center mb-6 text-indigo-600">כלי בינה מלאכותית (AI) מתקדמים</h1>
     
     <div class="mb-6 max-w-3xl mx-auto">
         <div class="relative mb-4">
@@ -63,6 +69,10 @@
     <div id="appGrid" class="app-grid max-w-6xl mx-auto">
         <!-- היישומים יתווספו כאן דינמית -->
     </div>
+
+    <button id="switchButton" class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition duration-300 shadow-lg">
+        עבור ליישום הקודם
+    </button>
 
     <script>
         const aiApps = [
@@ -150,11 +160,19 @@
 
         document.getElementById('searchInput').addEventListener('input', searchApps);
 
+        document.getElementById('switchButton').addEventListener('click', function() {
+            if (this.textContent === 'עבור ליישום הקודם') {
+                window.location.href = 'https://lanchi10.github.io/ai/';
+                this.textContent = 'חזור ליישום הנוכחי';
+            } else {
+                window.location.href = 'https://lanchi10.github.io/AI1/';
+                this.textContent = 'עבור ליישום הקודם';
+            }
+        });
+
         renderCategories();
         renderApps(aiApps);
     </script>
 </body>
 </html>
-Last edited just now
-
 

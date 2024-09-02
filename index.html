@@ -3,176 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>כלי בינה מלאכותית (AI) מתקדמים</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>כלי AI וחיפוש מתקדמים</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #50b3a2;
+            --background-color: #f0f4f8;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
         body {
-            font-family: 'Heebo', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
         }
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
         }
-        @media (min-width: 1024px) {
-            .app-grid {
-                grid-template-columns: repeat(4, 1fr);
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .theme-toggle, .prev-app-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .prev-app-btn {
+            background-color: var(--secondary-color);
+        }
+        .theme-toggle:hover, .prev-app-btn:hover {
+            background-color: var(--primary-color);
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: calc(50% - 20px);
+            min-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #e0e0e0;
+        }
+        .tool-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .tool-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .icon {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+        .tool-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .launch-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .launch-btn:hover {
+            background-color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
             }
         }
-        .search-icon {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-        .category-btn {
-            transition: all 0.3s ease;
-        }
-        .category-btn:hover, .category-btn.active {
-            background-color: #4299e1;
-            color: white;
-            transform: translateY(-2px);
-        }
-        .app-card {
-            transition: all 0.3s ease;
-            border-top: 4px solid transparent;
-        }
-        .app-card:hover {
-            transform: translateY(-5px);
-        }
-        .chatbot { border-color: #60a5fa; }
-        .data-analysis { border-color: #34d399; }
-        .image-creation { border-color: #f59e0b; }
-        .search-engine { border-color: #8b5cf6; }
-        .code-generation { border-color: #ec4899; }
-        .creative-writing { border-color: #14b8a6; }
-        #switchButton {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+        .dark-mode {
+            --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2a2a2a;
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen p-4">
-    <h1 class="text-4xl font-bold text-center mb-6 text-indigo-600">כלי בינה מלאכותית (AI) מתקדמים</h1>
-    
-    <div class="mb-6 max-w-3xl mx-auto">
-        <div class="relative mb-4">
-            <input type="text" id="searchInput" placeholder="חיפוש יישומים..." class="w-full pr-10 pl-4 py-3 border-2 border-indigo-300 rounded-full focus:outline-none focus:border-indigo-500 transition duration-300">
-            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-400 search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        </div>
-        <div id="categoriesContainer" class="flex flex-wrap justify-center gap-2 mb-4">
-            <!-- קטגוריות יתווספו כאן דינמית -->
+<body>
+    <header>
+        <button class="theme-toggle" onclick="toggleTheme()">החלף תצוגה</button>
+        <h1>כלי AI וחיפוש מתקדמים</h1>
+        <button class="prev-app-btn" onclick="window.location.href='https://lanchi10.github.io/ai/'">עבור ליישום הקודם</button>
+    </header>
+    <div class="container">
+        <div class="card-container">
+            <div class="card">
+                <h2>יישומי AI</h2>
+                <ul id="ai-tools">
+                    <!-- יישומי AI יתווספו כאן דינמית -->
+                </ul>
+            </div>
+            <div class="card">
+                <h2>מנועי חיפוש</h2>
+                <ul id="search-engines">
+                    <!-- מנועי חיפוש יתווספו כאן דינמית -->
+                </ul>
+            </div>
         </div>
     </div>
-
-    <div id="appGrid" class="app-grid max-w-6xl mx-auto">
-        <!-- היישומים יתווספו כאן דינמית -->
-    </div>
-
-    <button id="switchButton" class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition duration-300 shadow-lg">
-        עבור ליישום הקודם
-    </button>
-
     <script>
-        const aiApps = [
-            { name: 'ChatGPT', category: 'צ\'אטבוט', description: 'סיוע בכתיבה, תרגום ומענה על שאלות', icon: '💬', link: 'https://chat.openai.com/' },
-            { name: 'Perplexity', category: 'צ\'אטבוט', description: 'ניתוח טקסטים מורכבים וזיהוי דפוסים', icon: '🧠', link: 'https://www.perplexity.ai/' },
-            { name: 'Gemini', category: 'צ\'אטבוט', description: 'יצירת תוכן יצירתי ומענה לשאלות מורכבות', icon: '🌟', link: 'https://gemini.google.com/' },
-            { name: 'Google Vertex AI', category: 'ניתוח נתונים', description: 'יצירת תוכן וניתוח נתונים מתקדם', icon: '📊', link: 'https://cloud.google.com/vertex-ai' },
-            { name: 'Claude.ai', category: 'צ\'אטבוט', description: 'מענה לשאלות והבנת שפה מתקדמת', icon: '🤖', link: 'https://www.anthropic.com/' },
-            { name: 'Bing AI', category: 'מנוע חיפוש', description: 'חיפוש חכם עם תכונות AI', icon: '🔍', link: 'https://www.bing.com/' },
-            { name: 'POE', category: 'צ\'אטבוט', description: 'מגוון צ\'אטבוטים וכלי AI לשימוש יומיומי', icon: '🗨️', link: 'https://poe.com/' },
-            { name: 'Reka', category: 'ניתוח נתונים', description: 'ניתוח רגשות ודעת קהל ברשתות חברתיות', icon: '😃', link: 'https://reka.ai/' },
-            { name: 'Groq', category: 'ניתוח נתונים', description: 'ביצועי AI גבוהים וניתוח בזמן אמת', icon: '⚡', link: 'https://groq.com/' },
-            { name: 'Mistral', category: 'ניתוח נתונים', description: 'ניתוח טקסטים והפקת תובנות', icon: '🌪️', link: 'https://mistral.ai/' },
-            { name: 'Leonardo.ai', category: 'יצירת תמונות', description: 'יצירת אומנות ואנימציות בעזרת AI', icon: '🎨', link: 'https://leonardo.ai/' },
-            { name: 'Ideogram.ai', category: 'יצירת תמונות', description: 'יצירת גרפיקה וטקסטים חזותיים', icon: '🖼️', link: 'https://ideogram.ai/' },
-            { name: 'Emoji Generator', category: 'יצירת תמונות', description: 'יצירת אימוג\'ים מותאמים אישית', icon: '😎', link: 'https://emoji.ai/' },
-            { name: 'Midjourney', category: 'יצירת תמונות', description: 'יצירת אומנות ותמונות בעזרת AI', icon: '🖌️', link: 'https://www.midjourney.com/' },
-            { name: 'DALL·E', category: 'יצירת תמונות', description: 'יצירת תמונות מאפס על בסיס טקסט', icon: '🎭', link: 'https://openai.com/dall-e-2' },
-            { name: 'GitHub Copilot', category: 'כתיבת קוד', description: 'סיוע בכתיבת קוד והשלמת קוד', icon: '👨‍💻', link: 'https://github.com/features/copilot' },
-            { name: 'Notion AI', category: 'כתיבה יצירתית', description: 'כתיבה ושיפור תוכן בתוך Notion', icon: '📝', link: 'https://www.notion.so/product/ai' }
+        const aiTools = [
+            { name: "CHAT GPT", url: "https://chat.openai.com/", icon: "🤖", description: "צ'אטבוט AI מתקדם המסוגל לענות על שאלות, לכתוב טקסטים ולסייע במגוון משימות" },
+            { name: "Claude", url: "https://www.anthropic.com/", icon: "🧠", description: "עוזר AI חכם המתמחה בניתוח, כתיבה יצירתית ופתרון בעיות מורכבות" },
+            { name: "Gemini", url: "https://gemini.google.com/app", icon: "💎", description: "מודל שפה מתקדם של Google המשלב יכולות טקסט ותמונה" },
+            { name: "Copilot", url: "https://copilot.microsoft.com/", icon: "👨‍✈️", description: "עוזר AI אישי של Microsoft המשולב במגוון מוצרים ושירותים" },
+            { name: "Perplexity", url: "https://www.perplexity.ai/", icon: "🧩", description: "מנוע חיפוש מבוסס AI המספק תשובות מקיפות עם מקורות" },
+            { name: "Mistral", url: "https://chat.mistral.ai/", icon: "🌪️", description: "מודל שפה חדשני עם יכולות מתקדמות בעיבוד שפה טבעית" },
+            { name: "Reka", url: "https://reka.ai/", icon: "🔬", description: "פלטפורמת AI לפיתוח ואימון מודלים מותאמים אישית" },
+            { name: "POE", url: "https://poe.com/", icon: "📚", description: "פלטפורמה המאפשרת גישה למגוון רחב של מודלי AI ובוטים" },
+            { name: "Midjourney", url: "https://www.midjourney.com/", icon: "🎨", description: "כלי ליצירת אמנות דיגיטלית מרהיבה באמצעות AI" },
+            { name: "DALL-E", url: "https://labs.openai.com/", icon: "🖼️", description: "מערכת AI ליצירת תמונות מתיאורים טקסטואליים" }
         ];
 
-        const categories = ['הכל', ...new Set(aiApps.map(app => app.category))];
+        const searchEngines = [
+            { name: "Google", url: "https://www.google.com/", icon: "🔍", description: "מנוע החיפוש הפופולרי ביותר בעולם, המציע תוצאות מדויקות ורלוונטיות" },
+            { name: "Bing", url: "https://www.bing.com/", icon: "🌐", description: "מנוע החיפוש של Microsoft, המשלב תכונות AI ואינטגרציה עם שירותי Microsoft" },
+            { name: "DuckDuckGo", url: "https://duckduckgo.com/", icon: "🦆", description: "מנוע חיפוש המתמקד בפרטיות המשתמש, ללא מעקב אחר היסטוריית החיפוש" },
+            { name: "Brave", url: "https://search.brave.com/", icon: "🦁", description: "מנוע חיפוש פרטי ומאובטח, חלק מדפדפן Brave" },
+            { name: "Perplexity AI", url: "https://www.perplexity.ai/", icon: "🤔", description: "מנוע חיפוש מבוסס AI המספק תשובות מפורטות עם מקורות מידע" },
+            { name: "Bing AI", url: "https://www.bing.com/search?q=Bing+AI&showconv=1", icon: "🤖", description: "גרסת AI של Bing המשלבת חיפוש עם יכולות שיחה מתקדמות" },
+            { name: "You.com", url: "https://you.com/", icon: "👤", description: "מנוע חיפוש מותאם אישית המשלב AI לתוצאות רלוונטיות יותר" },
+            { name: "Ecosia", url: "https://www.ecosia.org/", icon: "🌳", description: "מנוע חיפוש ירוק המשתמש ברווחים לנטיעת עצים ברחבי העולם" }
+        ];
 
-        function renderCategories() {
-            const container = document.getElementById('categoriesContainer');
-            categories.forEach(category => {
-                const button = document.createElement('button');
-                button.textContent = category;
-                button.className = 'category-btn px-4 py-2 rounded-full text-sm bg-white text-indigo-600 shadow-md hover:shadow-lg';
-                button.onclick = () => filterApps(category);
-                container.appendChild(button);
-            });
-        }
-
-        function getCategoryClass(category) {
-            switch(category) {
-                case 'צ\'אטבוט': return 'chatbot';
-                case 'ניתוח נתונים': return 'data-analysis';
-                case 'יצירת תמונות': return 'image-creation';
-                case 'מנוע חיפוש': return 'search-engine';
-                case 'כתיבת קוד': return 'code-generation';
-                case 'כתיבה יצירתית': return 'creative-writing';
-                default: return '';
-            }
-        }
-
-        function renderApps(apps) {
-            const grid = document.getElementById('appGrid');
-            grid.innerHTML = '';
-            apps.forEach(app => {
-                const card = document.createElement('a');
-                card.href = app.link;
-                card.target = '_blank';
-                card.className = `app-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl ${getCategoryClass(app.category)} block`;
-                card.innerHTML = `
-                    <div class="text-4xl mb-3">${app.icon}</div>
-                    <h3 class="text-xl font-bold mb-2">${app.name}</h3>
-                    <p class="text-sm text-indigo-600 mb-3">${app.category}</p>
-                    <p class="text-gray-600">${app.description}</p>
+        function createListItems(items, listId) {
+            const list = document.getElementById(listId);
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="tool-info">
+                        <span class="tool-name">
+                            <span class="icon">${item.icon}</span>
+                            ${item.name}
+                        </span>
+                        <button class="launch-btn" onclick="window.open('${item.url}', '_blank')">הפעל</button>
+                    </div>
+                    <div class="tool-description">${item.description}</div>
                 `;
-                grid.appendChild(card);
+                list.appendChild(li);
             });
         }
 
-        function filterApps(category) {
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === category) {
-                    btn.classList.add('active');
-                }
-            });
-            const filteredApps = category === 'הכל' ? aiApps : aiApps.filter(app => app.category === category);
-            renderApps(filteredApps);
+        createListItems(aiTools, 'ai-tools');
+        createListItems(searchEngines, 'search-engines');
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
         }
-
-        function searchApps() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filteredApps = aiApps.filter(app => 
-                app.name.toLowerCase().includes(searchTerm) || 
-                app.description.toLowerCase().includes(searchTerm)
-            );
-            renderApps(filteredApps);
-        }
-
-        document.getElementById('searchInput').addEventListener('input', searchApps);
-
-        document.getElementById('switchButton').addEventListener('click', function() {
-            if (this.textContent === 'עבור ליישום הקודם') {
-                window.location.href = 'https://lanchi10.github.io/ai/';
-                this.textContent = 'חזור ליישום הנוכחי';
-            } else {
-                window.location.href = 'https://lanchi10.github.io/AI1/';
-                this.textContent = 'עבור ליישום הקודם';
-            }
-        });
-
-        renderCategories();
-        renderApps(aiApps);
     </script>
 </body>
 </html>
-
